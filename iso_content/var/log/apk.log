@@ -1,0 +1,222 @@
+
+Running `/sbin/apk update` at 2026-04-27 08:49:52
+apk-tools 3.0.6-r0, compiled for x86_64.
+v3.23.4-59-gb9ff5fecad9 [https://dl-cdn.alpinelinux.org/alpine/v3.23/main]
+v3.23.4-63-g861937f8aa5 [https://dl-cdn.alpinelinux.org/alpine/v3.23/community]
+OK: 27578 distinct packages available
+
+Running `apk update` at 2026-04-27 08:51:42
+apk-tools 3.0.6-r0, compiled for x86_64.
+v3.23.4-59-gb9ff5fecad9 [https://dl-cdn.alpinelinux.org/alpine/v3.23/main]
+v3.23.4-63-g861937f8aa5 [https://dl-cdn.alpinelinux.org/alpine/v3.23/community]
+OK: 27578 distinct packages available
+
+Running `apk add linux-lts chntpw ntfsprogs grub grub-efi grub-bios kbd-keymaps util-linux pciutils usbutils e2fsprogs dosfstools` at 2026-04-27 08:53:35
+apk-tools 3.0.6-r0, compiled for x86_64.
+ERROR: unable to select packages:
+  kbd-keymaps (no such package):
+    required by: world[kbd-keymaps]
+  ntfsprogs (no such package):
+    required by: world[ntfsprogs]
+
+Running `apk add linux-lts chntpw ntfs-3g-progs grub grub-efi grub-bios kbd kbd-bkeymaps util-linux pciutils usbutils e2fsprogs dosfstools` at 2026-04-27 08:58:41
+apk-tools 3.0.6-r0, compiled for x86_64.
+(  1/178) Installing chntpw (140201-r6)
+(  2/178) Installing dosfstools (4.2-r2)
+(  3/178) Installing libeconf (0.8.3-r0)
+(  4/178) Installing libblkid (2.41.4-r0)
+(  5/178) Installing libcom_err (1.47.3-r0)
+(  6/178) Installing e2fsprogs-libs (1.47.3-r0)
+(  7/178) Installing libuuid (2.41.4-r0)
+(  8/178) Installing e2fsprogs (1.47.3-r0)
+(  9/178) Installing xz-libs (5.8.2-r0)
+( 10/178) Installing zstd-libs (1.5.7-r2)
+( 11/178) Installing kmod (34.2-r1)
+( 12/178) Installing lddtree (1.27-r0)
+( 13/178) Installing mdev-conf (4.9-r0)
+( 14/178) Installing device-mapper-libs (2.03.35-r0)
+( 15/178) Installing json-c (0.18-r1)
+( 16/178) Installing cryptsetup-libs (2.8.1-r0)
+( 17/178) Installing kmod-libs (34.2-r1)
+( 18/178) Installing mkinitfs (3.13.0-r0)
+  Executing mkinitfs-3.13.0-r0.post-install
+( 19/178) Installing grub (2.12-r8)
+( 20/178) Installing grub-bios (2.12-r8)
+( 21/178) Installing grub-efi (2.12-r8)
+( 22/178) Installing kbd-misc (2.8.0-r0)
+( 23/178) Installing kbd (2.8.0-r0)
+( 24/178) Installing kbd-bkeymaps (2.8.0-r0)
+( 25/178) Installing linux-firmware-s5p-mfc (20251125-r1)
+( 26/178) Installing linux-firmware-yamaha (20251125-r1)
+( 27/178) Installing linux-firmware-yam (20251125-r1)
+( 28/178) Installing linux-firmware-xe (20251125-r1)
+( 29/178) Installing linux-firmware-wfx (20251125-r1)
+( 30/178) Installing linux-firmware-vxge (20251125-r1)
+( 31/178) Installing linux-firmware-vicam (20251125-r1)
+( 32/178) Installing linux-firmware-ueagle-atm (20251125-r1)
+( 33/178) Installing linux-firmware-ttusb-budget (20251125-r1)
+( 34/178) Installing linux-firmware-tigon (20251125-r1)
+( 35/178) Installing linux-firmware-ti-keystone (20251125-r1)
+( 36/178) Installing linux-firmware-ti-connectivity (20251125-r1)
+( 37/178) Installing linux-firmware-ti (20251125-r1)
+( 38/178) Installing linux-firmware-tehuti (20251125-r1)
+( 39/178) Installing linux-firmware-synaptics (20251125-r1)
+( 40/178) Installing linux-firmware-sxg (20251125-r1)
+( 41/178) Installing linux-firmware-sun (20251125-r1)
+( 42/178) Installing linux-firmware-slicoss (20251125-r1)
+( 43/178) Installing linux-firmware-sdca (20251125-r1)
+( 44/178) Installing linux-firmware-sb16 (20251125-r1)
+( 45/178) Installing linux-firmware-rtw89 (20251125-r1)
+( 46/178) Installing linux-firmware-rtw88 (20251125-r1)
+( 47/178) Installing linux-firmware-rtlwifi (20251125-r1)
+( 48/178) Installing linux-firmware-rtl_nic (20251125-r1)
+( 49/178) Installing linux-firmware-rtl_bt (20251125-r1)
+( 50/178) Installing linux-firmware-rsi (20251125-r1)
+( 51/178) Installing linux-firmware-rockchip (20251125-r1)
+( 52/178) Installing linux-firmware-realtek (20251125-r1)
+( 53/178) Installing linux-firmware-amdgpu (20251125-r1)
+( 54/178) Installing linux-firmware-radeon (20251125-r1)
+( 55/178) Installing linux-firmware-r128 (20251125-r1)
+( 56/178) Installing linux-firmware-qlogic (20251125-r1)
+( 57/178) Installing linux-firmware-qed (20251125-r1)
+( 58/178) Installing linux-firmware-ath10k (20251125-r1)
+( 59/178) Installing linux-firmware-ath11k (20251125-r1)
+( 60/178) Installing linux-firmware-qcom (20251125-r1)
+( 61/178) Installing linux-firmware-qca (20251125-r1)
+( 62/178) Installing linux-firmware-powervr (20251125-r1)
+( 63/178) Installing linux-firmware-ositech (20251125-r1)
+( 64/178) Installing linux-firmware-nxp (20251125-r1)
+( 65/178) Installing linux-firmware-nvidia (20251125-r1)
+( 66/178) Installing linux-firmware-netronome (20251125-r1)
+( 67/178) Installing linux-firmware-myricom (20251125-r1)
+( 68/178) Installing linux-firmware-mwlwifi (20251125-r1)
+( 69/178) Installing linux-firmware-mwl8k (20251125-r1)
+( 70/178) Installing linux-firmware-libertas (20251125-r1)
+( 71/178) Installing linux-firmware-mrvl (20251125-r1)
+( 72/178) Installing linux-firmware-moxa (20251125-r1)
+( 73/178) Installing linux-firmware-microchip (20251125-r1)
+( 74/178) Installing linux-firmware-meson (20251125-r1)
+( 75/178) Installing linux-firmware-mellanox (20251125-r1)
+( 76/178) Installing linux-firmware-mediatek (20251125-r1)
+( 77/178) Installing linux-firmware-matrox (20251125-r1)
+( 78/178) Installing linux-firmware-liquidio (20251125-r1)
+( 79/178) Installing linux-firmware-lenovo (20251125-r1)
+( 80/178) Installing linux-firmware-korg (20251125-r1)
+( 81/178) Installing linux-firmware-keyspan_pda (20251125-r1)
+( 82/178) Installing linux-firmware-keyspan (20251125-r1)
+( 83/178) Installing linux-firmware-kaweth (20251125-r1)
+( 84/178) Installing linux-firmware-ixp4xx (20251125-r1)
+( 85/178) Installing linux-firmware-isci (20251125-r1)
+( 86/178) Installing linux-firmware-dell (20251125-r1)
+( 87/178) Installing linux-firmware-hp (20251125-r1)
+( 88/178) Installing linux-firmware-intel (20251125-r1)
+( 89/178) Installing linux-firmware-inside-secure (20251125-r1)
+( 90/178) Installing linux-firmware-imx (20251125-r1)
+( 91/178) Installing linux-firmware-i915 (20251125-r1)
+( 92/178) Installing linux-firmware-go7007 (20251125-r1)
+( 93/178) Installing linux-firmware-ess (20251125-r1)
+( 94/178) Installing linux-firmware-ene-ub6250 (20251125-r1)
+( 95/178) Installing linux-firmware-emi62 (20251125-r1)
+( 96/178) Installing linux-firmware-emi26 (20251125-r1)
+( 97/178) Installing linux-firmware-edgeport (20251125-r1)
+( 98/178) Installing linux-firmware-e100 (20251125-r1)
+( 99/178) Installing linux-firmware-dsp56k (20251125-r1)
+(100/178) Installing linux-firmware-dpaa2 (20251125-r1)
+(101/178) Installing linux-firmware-dabusb (20251125-r1)
+(102/178) Installing linux-firmware-cypress (20251125-r1)
+(103/178) Installing linux-firmware-cxgb4 (20251125-r1)
+(104/178) Installing linux-firmware-cxgb3 (20251125-r1)
+(105/178) Installing linux-firmware-cpia2 (20251125-r1)
+(106/178) Installing linux-firmware-cnm (20251125-r1)
+(107/178) Installing linux-firmware-cis (20251125-r1)
+(108/178) Installing linux-firmware-cirrus (20251125-r1)
+(109/178) Installing linux-firmware-cavium (20251125-r1)
+(110/178) Installing linux-firmware-cadence (20251125-r1)
+(111/178) Installing linux-firmware-brcm (20251125-r1)
+(112/178) Installing linux-firmware-bnx2x (20251125-r1)
+(113/178) Installing linux-firmware-bnx2 (20251125-r1)
+(114/178) Installing linux-firmware-av7110 (20251125-r1)
+(115/178) Installing linux-firmware-atusb (20251125-r1)
+(116/178) Installing linux-firmware-atmel (20251125-r1)
+(117/178) Installing linux-firmware-ath9k_htc (20251125-r1)
+(118/178) Installing linux-firmware-ath6k (20251125-r1)
+(119/178) Installing linux-firmware-ath12k (20251125-r1)
+(120/178) Installing linux-firmware-arm (20251125-r1)
+(121/178) Installing linux-firmware-ar3k (20251125-r1)
+(122/178) Installing linux-firmware-amphion (20251125-r1)
+(123/178) Installing linux-firmware-amlogic (20251125-r1)
+(124/178) Installing linux-firmware-amdtee (20251125-r1)
+(125/178) Installing linux-firmware-amdnpu (20251125-r1)
+(126/178) Installing linux-firmware-amd-ucode (20251125-r1)
+(127/178) Installing linux-firmware-amd (20251125-r1)
+(128/178) Installing linux-firmware-airoha (20251125-r1)
+(129/178) Installing linux-firmware-aeonsemi (20251125-r1)
+(130/178) Installing linux-firmware-advansys (20251125-r1)
+(131/178) Installing linux-firmware-adaptec (20251125-r1)
+(132/178) Installing linux-firmware-acenic (20251125-r1)
+(133/178) Installing linux-firmware-3com (20251125-r1)
+(134/178) Installing linux-firmware-other (20251125-r1)
+(135/178) Installing linux-firmware (20251125-r1)
+(136/178) Installing linux-lts (6.18.24-r0)
+(137/178) Installing ntfs-3g-libs (2022.10.3-r4)
+(138/178) Installing ntfs-3g-progs (2022.10.3-r4)
+(139/178) Installing hwdata-pci (0.401-r0)
+(140/178) Installing pciutils-libs (3.14.0-r0)
+(141/178) Installing pciutils (3.14.0-r0)
+(142/178) Installing hwdata-usb (0.401-r0)
+(143/178) Installing eudev-libs (3.2.14-r6)
+(144/178) Installing libusb (1.0.29-r0)
+(145/178) Installing usbutils (019-r0)
+(146/178) Installing util-linux (2.41.4-r0)
+(147/178) Installing ncurses-terminfo-base (6.5_p20251123-r0)
+(148/178) Installing libncursesw (6.5_p20251123-r0)
+(149/178) Installing dmesg (2.41.4-r0)
+(150/178) Installing setarch (2.41.4-r0)
+(151/178) Installing libfdisk (2.41.4-r0)
+(152/178) Installing libmount (2.41.4-r0)
+(153/178) Installing libsmartcols (2.41.4-r0)
+(154/178) Installing skalibs-libs (2.14.4.0-r0)
+(155/178) Installing utmps-libs (0.1.3.1-r0)
+(156/178) Installing util-linux-misc (2.41.4-r0)
+(157/178) Installing linux-pam (1.7.1-r2)
+(158/178) Installing runuser (2.41.4-r0)
+(159/178) Installing mount (2.41.4-r0)
+(160/178) Installing losetup (2.41.4-r0)
+(161/178) Installing hexdump (2.41.4-r0)
+(162/178) Installing uuidgen (2.41.4-r0)
+(163/178) Installing blkid (2.41.4-r0)
+(164/178) Installing sfdisk (2.41.4-r0)
+(165/178) Installing mcookie (2.41.4-r0)
+(166/178) Installing agetty (2.41.4-r0)
+(167/178) Installing wipefs (2.41.4-r0)
+(168/178) Installing cfdisk (2.41.4-r0)
+(169/178) Installing umount (2.41.4-r0)
+(170/178) Installing flock (2.41.4-r0)
+(171/178) Installing lsblk (2.41.4-r0)
+(172/178) Installing libcap-ng (0.8.5-r0)
+(173/178) Installing setpriv (2.41.4-r0)
+(174/178) Installing lscpu (2.41.4-r0)
+(175/178) Installing logger (2.41.4-r0)
+(176/178) Installing partx (2.41.4-r0)
+(177/178) Installing fstrim (2.41.4-r0)
+(178/178) Installing findmnt (2.41.4-r0)
+Executing busybox-1.37.0-r30.trigger
+Executing kmod-34.2-r1.trigger
+Executing mkinitfs-3.13.0-r0.trigger
+* creating /boot/initramfs-lts for 6.18.24-0-lts
+Executing grub-2.12-r8.trigger
+* Generating grub configuration file ...
+* Found linux image: /boot/vmlinuz-lts
+* Found initrd image: /boot/initramfs-lts
+* Warning: os-prober will not be executed to detect other bootable partitions.
+* Systems on them will not be added to the GRUB boot configuration.
+* Check GRUB_DISABLE_OS_PROBER documentation entry.
+* Adding boot menu entry for UEFI Firmware Settings ...
+* done
+OK: 913.7 MiB in 194 packages
+
+Running `apk del linux-firmware` at 2026-04-27 11:19:20
+apk-tools 3.0.6-r0, compiled for x86_64.
+World updated, but the following packages are not removed due to:
+  linux-firmware: linux-lts
+OK: 913.7 MiB in 194 packages

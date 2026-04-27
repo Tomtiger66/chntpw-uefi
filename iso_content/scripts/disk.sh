@@ -13,7 +13,7 @@ line () {
 
 umount /disk >/dev/null 2>&1
 
-sh /usr/local/scripts/diskscan.sh
+/scripts/diskscan.sh
 
 echo 
 echo "Disks:"
@@ -42,14 +42,14 @@ do
   [ $e"x" = "x" ] && e=$def
   case $e in
       "f")
-       	  sh /usr/local/scripts/fetchdrv.sh /usr/local/scripts/"== Additional driver fetch. Swap floppy/usb if needed"
+       	  /scripts/fetchdrv.sh "== Additional driver fetch. Swap floppy/usb if needed"
 	  echo
 	  echo "Now try 'd' or 'm' to try to start the new drivers"
 	  echo
 	  sleep 1 
 	  ;;
       "a")
-      	  sh /usr/local/scripts/diskscan.sh
+      	  /scripts/diskscan.sh
 	  echo
 	  echo "Disks:"
 	  cat /tmp/disks
@@ -58,21 +58,21 @@ do
 	  cat /tmp/partitions
 	  ;;
       "l")
-      	  sh /usr/local/scripts/diskscan.sh
+      	  /scripts/diskscan.sh
           echo "Candidate Windows partitions found:"
 	  cat /tmp/ntparts
 	  ;;
       "d")
-	  sh /usr/local/scripts/autoscsi.sh
-      	  sh /usr/local/scripts/diskscan.sh
+	  /scripts/autoscsi.sh
+      	  /scripts/diskscan.sh
 	  echo "Disks:"
 	  cat /tmp/disks
 	  echo "Candidate Windows partitions found:"
 	  cat /tmp/ntparts
 	  ;;
       "m")
-	  sh /usr/local/scripts/scsi.sh
-      	  sh /usr/local/scripts/diskscan.sh
+	  /scripts/scsi.sh
+      	  /scripts/diskscan.sh
 	  echo "Disks:"
 	  cat /tmp/disks
 	  echo "Candidate Windows partitions found:"
@@ -97,7 +97,7 @@ do
 	  if [ $fs = "ntfs" ]; then
 	     echo "So, let's really check if it is NTFS?"
 	     echo
-	     ntfs-3g.probe --readwrite $prt
+	     ntfsfix -n $prt
 	     nrt=$?
 	     flags=""
              if [ $nrt -eq 12 ]; then 
@@ -117,12 +117,12 @@ do
 		echo "If that is not possible, you can force changes,"
 		echo "but the hibernated session will be lost!"
 		echo
-	 	read -p "Do you wish /usr/local/scripts/to force it? (y/n) [n] " yn
+	 	read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
 		   flags=",remove_hiberfile"
 	           echo
-		   echo "Your wish /usr/local/scripts/is my command, *poof* goes the hibernation"	   
+		   echo "Your wish is my command, *poof* goes the hibernation"	   
                 else
 		   echo "No changes made to the disk"
 	   	   exit 1
@@ -139,7 +139,7 @@ do
 		echo "If that is not possible, you can force changes, but there"
 		echo "is a small risk of losing some newly changed files"
 		echo
-	 	read -p "Do you wish /usr/local/scripts/to force it? (y/n) [n] " yn
+	 	read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
 		   flags=",force"
@@ -156,7 +156,7 @@ do
              fi	
 	     if [ $nrt -eq 999 ]; then
 	        echo "Mounting it. This may take up to a few minutes:"
-	        ntfs-3g $prt /disk -o $RW,noatime${flags} || {
+	        mount -t ntfs3 $prt /disk -o $RW,noatime${flags} || {
 		     echo
 		     echo Failed, returncode $?
 		     line

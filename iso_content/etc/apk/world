@@ -3,4 +3,17 @@ alpine-keys
 alpine-release
 apk-tools
 busybox
+chntpw
+dosfstools
+e2fsprogs
+grub
+grub-bios
+grub-efi
+kbd
+kbd-bkeymaps
+linux-lts
 musl-utils
+ntfs-3g-progs
+pciutils
+usbutils
+util-linux

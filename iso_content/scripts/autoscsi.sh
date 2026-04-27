@@ -17,15 +17,15 @@ echo "--- TRYING TO LOAD THE DRIVERS"
 
 for m in `cat /tmp/pcidrv`; do
   echo "### Loading $m"
-  modprobe ${m}.ko
+  modprobe ${m}
   echo
 done
 
 # Load usb storage and HID if not already loaded
 # Not if CD (included in kernel)
 [ -f /thisiscd ] || {
-  modprobe usbhid.ko
-  modprobe usb_storage.ko
+  modprobe usbhid
+  modprobe usb_storage
 }
 
 echo "-------------------------------------------------------------"

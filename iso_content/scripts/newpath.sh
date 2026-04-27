@@ -1,5 +1,5 @@
 #
-# part.sh /usr/local/scripts/(c) 1997-2008 Petter N Hagen
+# part.sh (c) 1997-2008 Petter N Hagen
 # part of ntchangepasswd bootdisk scripts
 #
 # Select path registry, and copy to /tmp

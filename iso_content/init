@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Grundlegende Dateisysteme mounten
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+mount -t devtmpfs dev /dev
+
+# PATH setzen
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# Wichtige Verzeichnisse anlegen
+mkdir -p /tmp /disk
+
+# NVMe und SCSI Module laden
+modprobe nvme 2>/dev/null
+modprobe nvme-core 2>/dev/null
+modprobe sd_mod 2>/dev/null
+
+# Unser Startskript aufrufen
+exec /scripts/start.sh

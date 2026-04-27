@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# main.sh /usr/local/scripts/(c) 1997-2014 Petter N Hagen
+# main.sh (c) 1997-2014 Petter N Hagen
 # part of ntchangepasswd bootdisk scripts
 #
 # Overall control
@@ -28,7 +28,7 @@ line
 echo "¤ Step ONE: Select disk partition where the Windows installation is"
 line
 
-sh /usr/local/scripts/newdisk.sh
+/scripts/newdisk.sh
 nwdr=$?
 if [ $nwdr -eq 8 ]; then
 	exec /scripts/main-old.sh
@@ -41,7 +41,7 @@ line
 echo "¤ Step TWO: Select registry files"
 line
 
-sh /usr/local/scripts/newpath.sh /usr/local/scripts/|| continue;
+/scripts/newpath.sh || continue;
 
 echo
 line
@@ -73,7 +73,7 @@ then
   rc=1
   while [ $rc -gt 0 ]
   do
-    sh /usr/local/scripts/write.sh
+    sh /scripts/write.sh
     rc=$?
   done
 else
@@ -100,7 +100,7 @@ echo
 echo "* end of scripts.. returning to the shell.."
 echo "* Press CTRL-ALT-DEL to reboot now"
 echo "* or do whatever you want from the shell.."
-echo "* You may also restart the script procedure with 'sh /usr/local/scripts//scripts/main.sh'"
+echo "* You may also restart the script procedure with 'sh /scripts/main.sh'"
 echo 
 exit 0
 

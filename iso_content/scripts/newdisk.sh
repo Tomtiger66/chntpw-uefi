@@ -13,7 +13,7 @@ line () {
 
 umount /disk >/dev/null 2>&1
 
-/usr/local/scripts/findwin.sh
+/scripts/findwin.sh
 
 line
 echo
@@ -42,7 +42,7 @@ do
 	  exit 8
 	  ;;
       "f")
-       	  /usr/local/scripts/fetchdrv.sh /usr/local/scripts/"== Additional driver fetch. Swap floppy/usb if needed"
+       	  /scripts/fetchdrv.sh "== Additional driver fetch. Swap floppy/usb if needed"
 	  echo
 	  echo "Now try 'd' or 'm' to try to start the new drivers"
 	  echo
@@ -54,19 +54,19 @@ do
 	  fdisk -l
 	  ;;
       "l")
-      	  /usr/local/scripts/findwin.sh
+      	  /scripts/findwin.sh
           echo "Candidate Windows partitions found:"
 	  cat /tmp/pflistprint
 	  ;;
       "d")
-	  /usr/local/scripts/autoscsi.sh
-      	  /usr/local/scripts/findwin.sh
+	  /scripts/autoscsi.sh
+      	  /scripts/findwin.sh
 	  echo "Candidate Windows partitions found:"
 	  cat /tmp/pflistprint
 	  ;;
       "m")
-	  /usr/local/scripts/scsi.sh
-      	  /usr/local/scripts/findwin.sh
+	  /scripts/scsi.sh
+      	  /scripts/findwin.sh
 	  echo "Candidate Windows partitions found:"
 	  cat /tmp/pflistprint
 	  ;;
@@ -103,7 +103,7 @@ do
 	  if [ $fs = "ntfs" ]; then
 	     echo "So, let's really check if it is NTFS?"
 	     echo
-	     ntfs-3g.probe --readwrite $prt
+	     mount -t ntfs3 --readwrite $prt
 	     nrt=$?
 	     flags=""
              if [ $nrt -eq 12 ]; then 
@@ -123,12 +123,12 @@ do
 		echo "If that is not possible, you can force changes,"
 		echo "but the hibernated session will be lost!"
 		echo
-	 	read -p "Do you wish /usr/local/scripts/to force it? (y/n) [n] " yn
+	 	read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
 		   flags=",remove_hiberfile"
 	           echo
-		   echo "Your wish /usr/local/scripts/is my command, *poof* goes the hibernation"	   
+		   echo "Your wish is my command, *poof* goes the hibernation"	   
                 else
 		   echo "No changes made to the disk"
 	   	   exit 1
@@ -145,7 +145,7 @@ do
 		echo "If that is not possible, you can force changes, but there"
 		echo "is a small risk of losing some newly changed files"
 		echo
-	 	read -p "Do you wish /usr/local/scripts/to force it? (y/n) [n] " yn
+	 	read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
 		   flags=",force"
@@ -162,7 +162,7 @@ do
              fi	
 	     if [ $nrt -eq 999 ]; then
 	        echo "Mounting it. This may take up to a few minutes:"
-	        ntfs-3g $prt /disk -o $RW,noatime${flags} || {
+	        mount -t ntfs3 $prt /disk -o $RW,noatime${flags} || {
 		     echo
 		     echo Failed, returncode $?
 		     line

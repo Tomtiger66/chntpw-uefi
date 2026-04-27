@@ -1,72 +1,73 @@
 #!/bin/sh
 
-# Modernisiertes findwin.sh /usr/local/scripts/für NVMe-SSDs und UEFI (2024)
-# Sucht Windows-Partitionen auf klassischen (sda) und modernen (nvme) Platten
+# Go through partitions and find windows on each
+# (c) 2013-2014 Petter N Hagen
+# NVMe support added 2025
 
 WINPATH='./*/system32/config'
 
-# Temporäre Dateien leeren/erstellen
 >/tmp/partitions
 >/tmp/disks
 >/tmp/pflist
 >/tmp/pflistprint
 
-# Verzeichnis für den Mount-Punkt sicherstellen
-mkdir -p /disk
+# NVMe Module laden falls noch nicht geschehen
+modprobe nvme 2>/dev/null
+modprobe nvme-core 2>/dev/null
+mdev -s 2>/dev/null
 
-echo "Scanne Festplatten nach Partitionen..."
+# Alle Partitionen aus /proc/partitions lesen
+# Schliesst sr? fd? aus, nimmt alle die mit Zahl enden
+# NVMe: nvme0n1p1 endet mit Zahl - wird korrekt erkannt
+# NVMe Disks selbst: nvme0n1 endet NICHT mit p+Zahl als letztes - wird ausgeschlossen
 
-# Findet sda1, sdb2 sowie nvme0n1p3 etc.
-# Filtert Loop-Devices, RAM-Disks und CD-ROMs aus.
-tail -n +3 /proc/partitions | awk ' BEGIN { n=1; }
-  $4 !~ /^(loop|ram|sr|fd|nbd)/ && $4 ~ /[0-9]$/ {
-    # Partitionen > 10MB anzeigen: Nr, Device, Blocks, GB, MB
-    if ($3 > 10000) printf("%d %s %i %i %i\n",n++,$4,$3,$3/1024/1024,$3/1024);
+tail -n +3 /proc/partitions | awk 'BEGIN { n=1; }
+  !/(sr|fd)[0-9]$/ && /[0-9]$/ {
+    # NVMe Disk selbst (nvme0n1) ausschliessen, nur Partitionen (nvme0n1p1)
+    if ($4 ~ /^nvme/ && $4 !~ /p[0-9]+$/) next;
+    if ($3 > 10000) printf("%d %s %i %i %i\n", n++, $4, $3, $3/1024/1024, $3/1024);
   }
 ' >/tmp/partitions
 
-if [ ! -s /tmp/partitions ]; then
-    echo "KEINE Partitionen gefunden! Hardware-Treiber Problem?"
-    exit 1
-fi
-
-echo "n  Gerät    Größe (MB) === GEFUNDENE PARTITIONEN:"
-cat /tmp/partitions | awk '{printf "%s  %-10s %s MB\n", $1, $2, $5}'
+echo "n device bytes   GB  MB === DISK PARTITIONS:"
+echo
+cat /tmp/partitions
 echo
 
-# Jede Partition testen
+# Jede Partition versuchen zu mounten und Windows suchen
 n=1
 while read num dev size gb mb; do
-  prt="/dev/"${dev}
-  echo -n "Prüfe $prt ($mb MB) ... "
+    prt="/dev/${dev}"
+    echo -n "$mb MB partition $dev "
 
-  # Versuch zu mounten (NTFS oder FAT)
-  # Wir nutzen hier 'mount', da moderne Systeme ntfs-3g automatisch einbinden
-  if mount -o ro,noatime $prt /disk 2>/dev/null; then
-    # Erfolg
-    :
-  else
-    echo "kein erkanntes Dateisystem."
-    continue
-  fi
+    # Erst ntfs3 (Kernel-Treiber) versuchen, dann vfat
+    if mount -t ntfs3 ${prt} /disk -o ro,noatime 2>/dev/null; then
+        ntfs=1
+        vfat=0
+        echo -n "is NTFS."
+    elif mount -t vfat ${prt} /disk -o ro,noatime 2>/dev/null; then
+        ntfs=0
+        vfat=1
+        echo -n "is FAT."
+    else
+        echo " failed to mount"
+        continue
+    fi
 
-  # In der Partition nach dem Windows-Registry-Pfad suchen
-  # Wir nutzen case-insensitive Suche für 'system32/config'
-  curpath=$(find /disk -maxdepth 3 -ipath "$WINPATH" 2>/dev/null | head -n 1 | sed 's|/disk/||')
+    # Windows-Registry suchen
+    cd /disk
+    find . -maxdepth 3 -ipath "$WINPATH" | sed 's/\.\///' >/tmp/fpath
+    if [ -s /tmp/fpath ]; then
+        echo -n " Found windows on: "
+        cat /tmp/fpath
+        echo /dev/${dev} $ntfs $vfat `cat /tmp/fpath` >>/tmp/pflist
+        printf "%2d %-8s %10dMB %s\n" $((n++)) $dev $mb `cat /tmp/fpath` >>/tmp/pflistprint
+    else
+        echo " No windows there"
+    fi
+    cd /
+    umount /disk 2>/dev/null
 
-  if [ -n "$curpath" ]; then
-    echo "GEFUNDEN!"
-    echo "Windows-Systempfad: $curpath"
-
-    # In Liste für das Hauptprogramm (main.sh) speichern
-    echo "$prt 1 0 $curpath" >>/tmp/pflist
-    printf "%2d %-12s %10dMB %s\n" $((n++)) $dev $mb "$curpath" >>/tmp/pflistprint
-  else
-    echo "kein Windows."
-  fi
-
-  umount /disk
 done </tmp/partitions
 
 echo
-echo "Scan abgeschlossen."

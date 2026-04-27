@@ -17,7 +17,7 @@ then
   cd $DRVDIR
   mv * $MODDIR
 else
-  grep nodrivers /proc/cmdline >/dev/null && /scripts/fetchdrv.sh /usr/local/scripts/"DISK DRIVERS NEEDED!"
+  grep nodrivers /proc/cmdline >/dev/null && /scripts/fetchdrv.sh "DISK DRIVERS NEEDED!"
 fi
 
 depmod -a
@@ -27,7 +27,7 @@ if [ $? == 1 ]; then
   echo 
   echo "** Will now try to auto-load relevant drivers based on PCI information"
 #  sleep 1
-  sh /usr/local/scripts//scripts/autoscsi.sh
+  sh /scripts/autoscsi.sh
 #  sleep 1
   echo
   echo "** If no disk show up, you may have to try again (d option) or manual (m)."

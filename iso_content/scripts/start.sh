@@ -9,12 +9,12 @@ mkdir -p /disk
 echo "Willkommen beim Passwort-Reset!"
 echo "Bitte Tastaturlayout wählen:"
 echo "1) Deutsch (qwertz)"
-echo "2) English /usr/local/scripts/(qwerty)"
+echo "2) English (qwerty)"
 read -p "Auswahl [1]: " kbd
 if [ "$kbd" = "2" ]; then
-  loadkeys /lib/keymaps/us.map.gz
+  loadkeys /usr/share/keymaps/i386/qwerty/us.map.gz
 else
-  loadkeys /lib/keymaps/de.map.gz
+  loadkeys /usr/share/keymaps/i386/qwertz/de.map.gz
 fi
-sh /usr/local/scripts/main.sh
+sh /scripts/main.sh
 
