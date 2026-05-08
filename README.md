@@ -11,3 +11,4 @@ Das Original-ISO unterstützt kein UEFI und erkennt keine NVMe-Laufwerke. Dieses
 ## Inhalt
 - \`scripts/\`: Die Original-Logik der Boot-CD.
 - \`init\`: Das ursprüngliche Start-Script.
+- \`Iso\`: Dieser Ordner enthält die fertige ISO-Datei einschließlich Scripte zu Erstellung eines bootfähigen Sticks unter Window und Linux.

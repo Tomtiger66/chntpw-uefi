@@ -82,7 +82,7 @@ cd $DSK/$sampath
 
 echo
 
-(ls -l |egrep -v '(log)|(LOG)|(sav)|(SAV)|(Evt)|(EVT)|(evt)' |more)
+ls | grep -Ev '(log|LOG|sav|SAV|Evt|EVT|evt|\.)'
 
 while [ $inp"x" != "qx" ]
 do

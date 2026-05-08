@@ -41,14 +41,11 @@ while read num dev size gb mb; do
     echo -n "$mb MB partition $dev "
 
     # Erst ntfs3 (Kernel-Treiber) versuchen, dann vfat
-    if mount -t ntfs3 ${prt} /disk -o ro,noatime 2>/dev/null; then
-        ntfs=1
-        vfat=0
-        echo -n "is NTFS."
-    elif mount -t vfat ${prt} /disk -o ro,noatime 2>/dev/null; then
-        ntfs=0
-        vfat=1
-        echo -n "is FAT."
+   if mount -t ntfs3 ${prt} /disk -o ro,noatime 2>/dev/null || \
+   mount -t ntfs ${prt} /disk -o ro,noatime 2>/dev/null; then
+    ntfs=1
+    vfat=0
+    echo -n "is NTFS."
     else
         echo " failed to mount"
         continue

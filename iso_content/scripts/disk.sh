@@ -42,14 +42,14 @@ do
   [ $e"x" = "x" ] && e=$def
   case $e in
       "f")
-       	  /scripts/fetchdrv.sh "== Additional driver fetch. Swap floppy/usb if needed"
+	  /scripts/fetchdrv.sh "== Additional driver fetch. Swap floppy/usb if needed"
 	  echo
 	  echo "Now try 'd' or 'm' to try to start the new drivers"
 	  echo
-	  sleep 1 
+	  sleep 1
 	  ;;
       "a")
-      	  /scripts/diskscan.sh
+	  /scripts/diskscan.sh
 	  echo
 	  echo "Disks:"
 	  cat /tmp/disks
@@ -58,13 +58,13 @@ do
 	  cat /tmp/partitions
 	  ;;
       "l")
-      	  /scripts/diskscan.sh
+	  /scripts/diskscan.sh
           echo "Candidate Windows partitions found:"
 	  cat /tmp/ntparts
 	  ;;
       "d")
 	  /scripts/autoscsi.sh
-      	  /scripts/diskscan.sh
+	  /scripts/diskscan.sh
 	  echo "Disks:"
 	  cat /tmp/disks
 	  echo "Candidate Windows partitions found:"
@@ -72,7 +72,7 @@ do
 	  ;;
       "m")
 	  /scripts/scsi.sh
-      	  /scripts/diskscan.sh
+	  /scripts/diskscan.sh
 	  echo "Disks:"
 	  cat /tmp/disks
 	  echo "Candidate Windows partitions found:"
@@ -100,7 +100,7 @@ do
 	     ntfsfix -n $prt
 	     nrt=$?
 	     flags=""
-             if [ $nrt -eq 12 ]; then 
+             if [ $nrt -eq 12 ]; then
 		echo
 		echo "Does not seem to be NTFS anyway, trying the FAT variants instead"
 		echo
@@ -117,15 +117,15 @@ do
 		echo "If that is not possible, you can force changes,"
 		echo "but the hibernated session will be lost!"
 		echo
-	 	read -p "Do you wish to force it? (y/n) [n] " yn
+		read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
-		   flags=",remove_hiberfile"
+		   flags="remove_hiberfile"
 	           echo
-		   echo "Your wish is my command, *poof* goes the hibernation"	   
+		   echo "Your wish is my command, *poof* goes the hibernation"
                 else
 		   echo "No changes made to the disk"
-	   	   exit 1
+		   exit 1
 	        fi
 	     fi
 	     if [ $nrt -eq 15 ]; then
@@ -139,24 +139,29 @@ do
 		echo "If that is not possible, you can force changes, but there"
 		echo "is a small risk of losing some newly changed files"
 		echo
-	 	read -p "Do you wish to force it? (y/n) [n] " yn
+		read -p "Do you wish to force it? (y/n) [n] " yn
 	        if [ $yn"n" = "yn" ]; then
 		   nrt=999
-		   flags=",force"
+		   flags="force"
 	           echo
 		   echo "Using the force.."
                 else
 		   echo "No changes made to the disk"
-	   	   exit 1
+		   exit 1
 	        fi
 	     fi
-	     if [ $nrt -eq 0 ]; then      # Go for it
+	     if [ $nrt -eq 0 ]; then
 	       	echo "Yes, read-write seems OK."
-		nrt=999;
-             fi	
+		nrt=999
+             fi
 	     if [ $nrt -eq 999 ]; then
 	        echo "Mounting it. This may take up to a few minutes:"
-	        mount -t ntfs3 $prt /disk -o $RW,noatime${flags} || {
+	        if [ -n "$flags" ]; then
+		    mount -t ntfs3 -o $RW,noatime,$flags $prt /disk
+		else
+		    mount -t ntfs3 -o $RW,noatime $prt /disk
+		fi
+		if [ $? -ne 0 ]; then
 		     echo
 		     echo Failed, returncode $?
 		     line
@@ -165,13 +170,13 @@ do
 		     line
 		     read -p "Press return/enter to continue.." yn
 		     exit 1
-	          }
+		fi
 		echo
 		echo "Success!"
 	        echo "ntfs" >/tmp/fs
 		exit 0
 	     fi
-	     if [ $nrt -ne 998 ]; then 
+	     if [ $nrt -ne 998 ]; then
 	        echo Error
 		echo
 		echo "NTFS probe returned error code $nrt"
@@ -184,8 +189,8 @@ do
 	  if [ $fs = "vfat" ]; then
 	    echo
 	    echo "Trying to mount FAT / VFAT / FAT32 etc"
-	    echo 
-	    mount -t vfat -o$RW,noatime $prt /disk && {
+	    echo
+	    mount -t vfat -o $RW,noatime $prt /disk && {
 		echo "vfat" >/tmp/fs
 		echo
 		echo "Success"
@@ -199,4 +204,3 @@ do
 done
 
 exit 1
-

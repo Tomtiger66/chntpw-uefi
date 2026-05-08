@@ -2,6 +2,7 @@
 #
 # main.sh (c) 1997-2014 Petter N Hagen
 # part of ntchangepasswd bootdisk scripts
+# Neustart/Ausschalten am Ende hinzugefuegt 2025
 #
 # Overall control
 #
@@ -25,27 +26,27 @@ echo "             all the way through the questions"
 echo ""
 
 line
-echo "¤ Step ONE: Select disk partition where the Windows installation is"
+echo "* Step ONE: Select disk partition where the Windows installation is"
 line
 
 /scripts/newdisk.sh
 nwdr=$?
 if [ $nwdr -eq 8 ]; then
-	exec /scripts/main-old.sh
+    exec /scripts/main-old.sh
 fi
 if [ $nwdr -eq 0 ]
 then
 
 echo
 line
-echo "¤ Step TWO: Select registry files"
+echo "* Step TWO: Select registry files"
 line
 
 /scripts/newpath.sh || continue;
 
 echo
 line
-echo "¤ Step THREE: Password or registry edit"
+echo "* Step THREE: Password or registry edit"
 line
 
 cd /tmp
@@ -67,7 +68,7 @@ if [ $rc -eq 2 ]
 then
   echo
   line
-  echo "¤ Step FOUR: Writing back changes"
+  echo "* Step FOUR: Writing back changes"
   line
 
   rc=1
@@ -98,9 +99,54 @@ umount /disk >/dev/null 2>&1
 line
 echo
 echo "* end of scripts.. returning to the shell.."
-echo "* Press CTRL-ALT-DEL to reboot now"
-echo "* or do whatever you want from the shell.."
-echo "* You may also restart the script procedure with 'sh /scripts/main.sh'"
-echo 
-exit 0
+echo
 
+# -----------------------------------------------
+# Neustart oder Ausschalten
+# Bei Laptops gibt es oft keinen einfachen Weg
+# das System zu beenden ohne den Einschalter
+# 4 Sekunden zu druecken. Diese Abfrage bietet
+# eine saubere Alternative.
+# -----------------------------------------------
+line
+echo "Was moechten Sie jetzt tun?"
+echo "1) Rechner neu starten  (Reboot)"
+echo "2) Rechner ausschalten  (Shutdown)"
+echo "3) Shell oeffnen        (fuer Experten)"
+echo
+read -p "Auswahl [1]: " endchoice
+[ -z "$endchoice" ] && endchoice="1"
+
+case $endchoice in
+    "1")
+        echo
+        echo "Rechner wird neu gestartet..."
+        echo "Bitte USB-Stick nach dem Neustart entfernen!"
+        sleep 3
+        # Methode 1: Busybox Force
+        busybox reboot -f
+        # Methode 2: Falls Methode 1 scheitert (SysRq)
+        echo 1 > /proc/sys/kernel/sysrq
+        echo b > /proc/sys/kernel/sysrq
+        ;;
+    "2")
+        echo
+        echo "Rechner wird ausgeschaltet..."
+        echo "USB-Stick kann jetzt entfernt werden."
+        sleep 3
+        # Methode 1: Busybox Force
+        busybox poweroff -f
+        # Methode 2: Falls Methode 1 scheitert (SysRq)
+        echo 1 > /proc/sys/kernel/sysrq
+        echo o > /proc/sys/kernel/sysrq
+        ;;
+    *)
+        echo
+        echo "Shell wird geoeffnet..."
+        echo "Befehle zum Verlassen: 'reboot -f' oder 'poweroff -f'"
+        /bin/sh
+        ;;
+esac
+
+# Kein exit 0 hier, sonst gibt es eine Kernel Panic, falls der Prozess durchläuft.
+# Stattdessen einfach in der Shell bleiben oder neu fragen.
