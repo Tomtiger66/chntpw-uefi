@@ -1,3 +1,21 @@
+# ISO & Installation Tools
+
+This directory contains the final bootable ISO and the automated installation scripts for Ventoy.
+
+## Contents:
+*   `chntpw-universal-rescue.iso`: The main rescue image.
+*   `install_ventoy_auto.ps1`: Automated installer for Windows users.
+*   `install_ventoy.sh`: Automated installer for Linux users.
+*   `ventoy-1.0.xx/`: (Optional) Your extracted Ventoy directory.
+
+## How to use:
+The scripts are designed to find the Ventoy subfolder automatically. Simply place your extracted Ventoy folder here and run the script for your operating system.
+
+**Note for Windows Users:** 
+Make sure to run the PowerShell script as **Administrator** to allow disk formatting.
+
+
+
 # chntpw UEFI Rescue ISO
 
 Dieses Projekt erstellt ein minimales Rescue-System auf Basis von Alpine Linux zum Zurücksetzen von Windows-Passwörtern.
