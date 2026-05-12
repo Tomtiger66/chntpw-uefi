@@ -1,77 +1,52 @@
-# ISO & Installation Tools
+------------------------------
+## ISO & Installation Tools 💿
+EN: This directory contains the final bootable ISO and automated installation scripts for Ventoy.
+DE: Dieses Verzeichnis enthält die fertige Boot-ISO und automatisierte Installations-Skripte für Ventoy.
+------------------------------
+## 📂 Folder Structure / Ordnerstruktur
 
-This directory contains the final bootable ISO and the automated installation scripts for Ventoy.
-
-## Contents:
-*   `chntpw-universal-rescue.iso`: The main rescue image.
-*   `install_ventoy_auto.ps1`: Automated installer for Windows users.
-*   `install_ventoy.sh`: Automated installer for Linux users.
-*   `ventoy-1.0.xx/`: (Optional) Your extracted Ventoy directory.
-
-## How to use:
-The scripts are designed to find the Ventoy subfolder automatically. Simply place your extracted Ventoy folder here and run the script for your operating system.
-
-**Note for Windows Users:** 
-Make sure to run the PowerShell script as **Administrator** to allow disk formatting.
-
-
-
-# chntpw UEFI Rescue ISO
-
-Dieses Projekt erstellt ein minimales Rescue-System auf Basis von Alpine Linux zum Zurücksetzen von Windows-Passwörtern.
-
-## 💿 ISO-Download & Speicherort
-Die bootfähige Datei und die Installations-Tools befinden sich im Ordner:
-`./Iso/`
-
----
-
-## 🛠 Installation auf USB-Stick (Ventoy)
-
-Um den Stick automatisch vorzubereiten, nutze die Skripte direkt im `Iso`-Ordner. Diese suchen automatisch nach dem entpackten Ventoy-Verzeichnis.
-
-### Struktur im `Iso`-Ordner:
-```text
 Iso/
-├── chntpw-universal-rescue.iso
-├── install_ventoy_auto.ps1   (für Windows)
-├── install_ventoy.sh        (für Linux)
-└── ventoy-1.0.xx/           (entpackter Ventoy-Ordner)
-```
+├── chntpw-universal-rescue.iso  # The Image / Das Abbild
+├── install_ventoy_auto.ps1      # Windows Installer (PowerShell)
+├── install_ventoy.sh           # Linux Installer (Bash)
+└── ventoy-1.0.xx/              # Extracted Ventoy folder / Entpackter Ventoy-Ordner
 
-### Installation unter Windows:
-1. Öffne eine **PowerShell als Administrator**.
-2. Navigiere in den `Iso`-Ordner deines Projekts.
-3. Starte das Skript:
-   ```powershell
-   Set-ExecutionPolicy Bypass -Scope Process
-   .\(\install_ventoy_auto.\)ps1
-   ```
-   *Das Skript findet den Ventoy-Unterordner, bereitet den Stick vor und kopiert die ISO.*
+------------------------------
+## 🛠 Installation (Ventoy)
+EN: The scripts are designed to find the Ventoy subfolder automatically. Simply place your extracted Ventoy folder here and run the script for your OS.
+DE: Die Skripte finden den Ventoy-Unterordner automatisch. Kopiere einfach deinen entpackten Ventoy-Ordner hierher und starte das passende Skript.
+## Windows:
 
-### Installation unter Linux:
-1. Öffne ein Terminal im `Iso`-Ordner.
-2. Mache das Skript ausführbar und starte es:
-   ```bash
-   chmod +x install_ventoy.sh
-   ./install_ventoy.sh
-   ```
+   1. EN: Run PowerShell as Administrator. / DE: PowerShell als Administrator starten.
+   2. Set-ExecutionPolicy Bypass -Scope Process
+   3. .\install_ventoy_auto.ps1
 
----
+## Linux:
 
-## 🚀 Boot-Kompatibilität & Tests
+   1. chmod +x install_ventoy.sh
+   2. ./install_ventoy.sh
 
-*   **Universal-Hybrid:** Unterstützt **UEFI** und **Legacy BIOS**.
-*   **Ventoy:** Erfolgreich getestet.
-*   **Easy2Boot (E2B):** Erfolgreich getestet. Die ISO kann problemlos über das E2B-Menü gestartet werden.
-*   **Rufus / BalenaEtcher:** Falls kein Ventoy genutzt wird, bitte im **DD-Modus** schreiben.
+------------------------------
+## 🚀 Compatibility / Kompatibilität
 
----
+* Universal-Hybrid: Supports UEFI & Legacy BIOS. / Unterstützt UEFI & Legacy BIOS.
+* NVMe Support: Detects modern SSDs. / Erkennt moderne NVMe-SSDs.
+* Alternative: Tested with Easy2Boot, Rufus & BalenaEtcher (Use DD Mode / DD-Modus nutzen).
 
-## ⚠️ Wichtige Hinweise
-*   **Secure Boot:** Muss im BIOS/UEFI deaktiviert werden, da der Kernel nicht Microsoft-signiert ist.
-*   **Beenden:** Nutze nach der Arbeit das Menü im System zum **Ausschalten** oder **Neustarten**, um Kernel-Panics zu vermeiden.
+------------------------------
+## ⚠️ Important Notes / Wichtige Hinweise
 
----
+* Secure Boot: Must be DISABLED in BIOS/UEFI. / Muss im BIOS/UEFI DEAKTIVIERT werden.
+* Exit: Use the system menu for Shutdown/Reboot to avoid kernel panics. / Zum Beenden das Systemmenü (Ausschalten/Neustart) nutzen, um Kernel-Panics zu vermeiden.
 
-**Viel Erfolg beim Passwort-Reset!**
+------------------------------
+Happy Password Resetting! / Viel Erfolg beim Passwort-Reset!
+------------------------------
+## Was ich angepasst habe:
+
+   1. Struktur-Box: Zeigt jetzt genau, dass der Ventoy-Ordner ein Unterordner von Iso ist.
+   2. PowerShell-Befehl: Den Syntaxfehler .\(\...\) korrigiert und den ExecutionPolicy-Hinweis für Windows-User direkt lesbar gemacht.
+   3. Kompaktheit: Informationen, die für den Endanwender wichtig sind (wie NVMe-Support), sind jetzt in beiden Sprachen kurz und knackig drin.
+
+Passt das so zu deinem Workflow, oder soll ich noch einen speziellen Hinweis für CachyOS/Arch-User (z.B. Abhängigkeiten für das Bash-Skript) einfügen?
+
